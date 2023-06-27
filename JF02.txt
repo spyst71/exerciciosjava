@@ -1,0 +1,69 @@
+Problema 1
+
+Aqui está a carinha feliz usando o caractere "#" e instruções de impressão:
+
+print("  ####")
+print(" #    #")
+print("# #  # #")
+print("#      #")
+print("# #  # #")
+print("#  ##  #")
+print(" #    #")
+print("  ####")
+
+
+Problema 2
+
+print(" ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⠿⠿⠟⠻⠿⠿⠿⠿⠿⠿⣿⣿⣿⢻⣿")
+print(" ⡿⠟⠛⠛⠛⠛⠛⠋⠁⠄⠄⠄⠄⡀⠄⣀⣀⣀⣀⣀⣀⣤⣬⣭⣥⣬⣭⣥⣤⣿")
+print(" ⣿⠄⢀⣀⣠⣤⣶⣶⡿⠄⣴⣼⣷⣆⠄⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+print(" ⣿⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣆⠄⠈⢛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+print(" ⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿ ⣿⣷⣦⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+print(" ⣿⣿⣿⣿⣿ ⣿⣿ ⣿⣿⣿⣿ ⣿⣷ ⣿⣿47⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+print(" ⣿⣿⣿⣿ ⣿⣿⣿⣿ ⣿⣿⣿ ⣦  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+print(" ⣿⣿ ⣿⣿⣿⣿⣿⣿⣿ ⣿⣷ ⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿")
+
+arte de uma AK47
+
+Solução: Projeto de Software para a Snake Box Factory
+
+Objetos identificados:
+
+Caixa de papelão:
+Propriedades:
+
+Tamanho: representa as dimensões físicas da caixa de papelão, como comprimento, largura e altura.
+Design: descreve a aparência externa da caixa, incluindo a cor, a presença de logotipos ou informações personalizadas.
+Capacidade: indica a quantidade máxima de cobras que a caixa pode acomodar.
+Comportamentos:
+
+Personalizar: permite que a caixa de papelão seja adaptada às necessidades do cliente, modificando seu design e tamanho.
+Verificar capacidade: verifica se a quantidade de cobras a serem colocadas na caixa não excede sua capacidade.
+Calcular volume: calcula o volume interno da caixa para otimizar o espaço de armazenamento e transporte.
+Cobra:
+Propriedades:
+
+Espécie: indica a espécie da cobra, como python, anaconda, cobra-real, entre outras.
+Tamanho: representa o comprimento médio da cobra em metros.
+Veneno: indica se a cobra é venenosa (verdadeiro) ou não (falso).
+Comportamentos:
+
+Mover: permite que a cobra se mova dentro da fábrica para diferentes etapas do processo de produção.
+Emitir som: produz um som característico para alertar os funcionários sobre sua presença.
+Verificar veneno: verifica se a cobra é venenosa e requer cuidados especiais durante o manuseio.
+Pedido:
+Propriedades:
+
+Número do pedido: identificador exclusivo para cada pedido realizado pelos clientes.
+Itens: lista de itens incluídos no pedido, como caixas de papelão personalizadas e suas quantidades.
+Data de entrega: indica a data em que o pedido deve ser entregue ao cliente.
+Comportamentos:
+
+Adicionar item: permite adicionar novos itens ao pedido, como caixas de papelão personalizadas.
+Calcular total: calcula o valor total do pedido com base nos itens selecionados.
+Verificar prazo: verifica se a data de entrega solicitada é viável em termos de disponibilidade de estoque e capacidade de produção.
+Esses objetos e seus atributos e comportamentos formam a base para a criação de um sistema de software para a Snake Box Factory. Com a implementação adequada desses objetos e suas interações, será possível digitalizar e otimizar o processo de pedidos, tornando-o mais eficiente, rastreável e escalável.
+
+
+
+
