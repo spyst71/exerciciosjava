@@ -1,0 +1,197 @@
+Aqui está uma implementação básica da classe "CampusMap" que atende aos requisitos mencionados:
+
+import javafx.application.Application;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CampusMap extends Application {
+    private List<Dormitory> dormitories;
+    private Circle firstCentralPoint;
+    private Circle secondCentralPoint;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        dormitories = createDormitories();
+
+        Pane root = new Pane();
+        root.setPrefSize(600, 400);
+
+        for (Dormitory dormitory : dormitories) {
+            root.getChildren().add(dormitory.getShape());
+            root.getChildren().add(dormitory.getLabel());
+        }
+
+        firstCentralPoint = createCentralPoint(Color.BLUE);
+        root.getChildren().add(firstCentralPoint);
+
+        Label firstCentralPointLabel = createCentralPointLabel();
+        root.getChildren().add(firstCentralPointLabel);
+
+        secondCentralPoint = createCentralPoint(Color.RED);
+        root.getChildren().add(secondCentralPoint);
+
+        Label secondCentralPointLabel = createCentralPointLabel();
+        root.getChildren().add(secondCentralPointLabel);
+
+        recalculateCentralPoints();
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private List<Dormitory> createDormitories() {
+        List<Dormitory> dormitories = new ArrayList<>();
+
+        // Create dormitories with random positions and populations (for demonstration purposes)
+        dormitories.add(new Dormitory("Dorm A", 30, 100, 100));
+        dormitories.add(new Dormitory("Dorm B", 40, 400, 200));
+        dormitories.add(new Dormitory("Dorm C", 25, 300, 300));
+
+        return dormitories;
+    }
+
+    private Circle createCentralPoint(Color color) {
+        Circle centralPoint = new Circle(8, color);
+        centralPoint.setOpacity(0.8);
+        return centralPoint;
+    }
+
+    private Label createCentralPointLabel() {
+        Label label = new Label();
+        label.setAlignment(Pos.CENTER);
+        label.setPrefSize(60, 30);
+        label.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        return label;
+    }
+
+    private void recalculateCentralPoints() {
+        calculateFirstCentralPoint();
+        calculateSecondCentralPoint();
+
+        updateCentralPointLabel(firstCentralPoint, dormitories.get(0).getPopulation());
+        updateCentralPointLabel(secondCentralPoint, calculateGroupPopulation());
+    }
+
+    private void calculateFirstCentralPoint() {
+        double totalX = 0;
+        double totalY = 0;
+        int totalPopulation = 0;
+
+        for (Dormitory dormitory : dormitories) {
+            totalX += dormitory.getX();
+            totalY += dormitory.getY();
+            totalPopulation += dormitory.getPopulation();
+        }
+
+        double averageX = totalX / dormitories.size();
+        double averageY = totalY / dormitories.size();
+
+        firstCentralPoint.setCenterX(averageX);
+        firstCentralPoint.setCenterY(averageY);
+    }
+
+    private void calculateSecondCentralPoint() {
+        double totalX = 0;
+        double totalY = 0;
+        int totalPopulation = 0;
+
+        for (Dormitory dormitory : dormitories) {
+            totalX += dormitory.getX() * dormitory.getPopulation();
+            totalY += dormitory.getY() * dormitory.getPopulation();
+            totalPopulation += dormitory.getPopulation();
+        }
+
+        double averageX = totalX / totalPopulation;
+        double averageY = totalY / totalPopulation;
+
+        secondCentralPoint.setCenterX(averageX);
+        secondCentralPoint.setCenterY(averageY);
+    }
+
+    private void updateCentralPointLabel(Circle centralPoint, int population) {
+        Label label = (Label) centralPoint.getUserData();
+        label.setText("Population: " + population);
+        label.setLayoutX(centralPoint.getCenterX() - label.getPrefWidth() / 2);
+        label.setLayoutY(centralPoint.getCenterY() - label.getPrefHeight() / 2);
+    }
+
+    private int calculateGroupPopulation() {
+        int totalPopulation = 0;
+
+        for (Dormitory dormitory : dormitories) {
+            totalPopulation += dormitory.getPopulation();
+        }
+
+        return totalPopulation;
+    }
+
+    private class Dormitory {
+        private String name;
+        private int population;
+        private double x;
+        private double y;
+        private Rectangle shape;
+        private Label label;
+
+        public Dormitory(String name, int population, double x, double y) {
+            this.name = name;
+            this.population = population;
+            this.x = x;
+            this.y = y;
+            createShape();
+            createLabel();
+        }
+
+        private void createShape() {
+            shape = new Rectangle(50, 30, Color.LIGHTGREEN);
+            shape.setX(x);
+            shape.setY(y);
+        }
+
+        private void createLabel() {
+            label = new Label(name + " (Pop: " + population + ")");
+            label.setPrefSize(100, 20);
+            label.setLayoutX(x + 10);
+            label.setLayoutY(y - 25);
+        }
+
+        public Rectangle getShape() {
+            return shape;
+        }
+
+        public Label getLabel() {
+            return label;
+        }
+
+        public int getPopulation() {
+            return population;
+        }
+
+        public double getX() {
+            return x + shape.getWidth() / 2;
+        }
+
+        public double getY() {
+            return y + shape.getHeight() / 2;
+        }
+    }
+}
+
+Esta implementação cria uma interface gráfica simples com dormitórios representados por retângulos e rótulos. Os pontos centrais são representados por círculos e exibidos na interface gráfica. Os rótulos mostram as coordenadas numéricas dos pontos centrais.
+
+Você pode executar a classe CampusMap para ver a representação visual dos dormitórios e os pontos centrais na interface gráfica. Lembre-se de que esta é uma implementação básica e pode ser expandida e aprimorada de acordo com suas necessidades específicas.

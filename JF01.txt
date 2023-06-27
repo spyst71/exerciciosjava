@@ -1,0 +1,44 @@
+Parte 1: Adicionar um arquivo .java existente a um projeto Java
+Para adicionar um arquivo .java existente a um projeto Java, você pode seguir as etapas gerais abaixo:
+
+Crie um novo projeto no seu IDE Java.
+No projeto criado, encontre a pasta ou diretório onde os arquivos .java são armazenados.
+Copie o arquivo .java existente para essa pasta.
+No IDE, atualize o projeto para incluir o novo arquivo .java. Isso pode ser feito clicando com o botão direito do mouse no projeto e selecionando "Atualizar" ou uma opção semelhante.
+
+Parte 2: Criar um novo projeto Java com uma classe main
+Para criar um novo projeto Java com uma classe main, você pode seguir as etapas gerais abaixo:
+
+Abra o seu IDE Java.
+Crie um novo projeto Java.
+No novo projeto, crie uma nova classe Java.
+Na classe Java, adicione o método main usando a seguinte estrutura:
+
+public class MyClass {
+    public static void main(String[] args) {
+        // Seu código aqui
+    }
+}
+
+Parte 3: Testar o código
+
+Para imprimir uma mensagem diferente de "Hello World!", você pode editar o código dentro do método main. Por exemplo:
+
+public class MyClass {
+    public static void main(String[] args) {
+        System.out.println("Olá, mundo!");
+    }
+}
+
+Depois de fazer a edição, compile e execute o código para ver a nova mensagem impressa.
+
+A sintaxe Java faz distinção entre letras maiúsculas e minúsculas. Portanto, alterar o 'S' em 'System' para minúsculo resultará em um erro de compilação, pois o nome correto é "System".
+
+O ponto e vírgula (;) é importante para a sintaxe Java. Ele é usado para indicar o fim de uma instrução. Se você remover o ponto e vírgula, ocorrerá um erro de compilação. Por exemplo:
+
+public class MyClass {
+    public static void main(String[] args) {
+        System.out.println("Hello World!")  // Erro: ponto e vírgula faltando
+    }
+}
+

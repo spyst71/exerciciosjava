@@ -1,0 +1,230 @@
+
+Aqui está um exemplo de implementação em Java para modelar as propriedades, comportamentos e interações dos objetos do fliperama:
+
+import java.util.Random;
+
+// Classe Cartão
+class Cartao {
+    private int numero;
+    private int saldoCredito;
+    private int saldoTickets;
+
+    public Cartao(int numero) {
+        this.numero = numero;
+        this.saldoCredito = 0;
+        this.saldoTickets = 0;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getSaldoCredito() {
+        return saldoCredito;
+    }
+
+    public void setSaldoCredito(int saldoCredito) {
+        this.saldoCredito = saldoCredito;
+    }
+
+    public int getSaldoTickets() {
+        return saldoTickets;
+    }
+
+    public void setSaldoTickets(int saldoTickets) {
+        this.saldoTickets = saldoTickets;
+    }
+}
+
+// Classe Jogo
+class Jogo {
+    private String nome;
+    private int creditosRequeridos;
+
+    public Jogo(String nome, int creditosRequeridos) {
+        this.nome = nome;
+        this.creditosRequeridos = creditosRequeridos;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getCreditosRequeridos() {
+        return creditosRequeridos;
+    }
+
+    public int jogar(Cartao cartao) {
+        if (cartao.getSaldoCredito() >= creditosRequeridos) {
+            cartao.setSaldoCredito(cartao.getSaldoCredito() - creditosRequeridos);
+            int ticketsGanhos = gerarNumeroAleatorioNaoNegativo();
+            cartao.setSaldoTickets(cartao.getSaldoTickets() + ticketsGanhos);
+            System.out.println("Cartão " + cartao.getNumero() + ": Jogou " + nome + ". Ganhou " +
+                    ticketsGanhos + " tíquetes. Saldo de tíquetes: " + cartao.getSaldoTickets());
+            return ticketsGanhos;
+        } else {
+            System.out.println("Cartão " + cartao.getNumero() + ": Créditos insuficientes para jogar " + nome);
+            return 0;
+        }
+    }
+
+    private int gerarNumeroAleatorioNaoNegativo() {
+        Random random = new Random();
+        return random.nextInt(Integer.MAX_VALUE);
+    }
+}
+
+// Classe Categoria de Prêmio
+class CategoriaPremio {
+    private String nome;
+    private int ticketsObrigatorios;
+    private int quantidadeDisponivel;
+
+    public CategoriaPremio(String nome, int ticketsObrigatorios, int quantidadeDisponivel) {
+        this.nome = nome;
+        this.ticketsObrigatorios = ticketsObrigatorios;
+        this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getTicketsObrigatorios() {
+        return ticketsObrigatorios;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public boolean verificarDisponibilidade() {
+        return quantidadeDisponivel > 0;
+    }
+
+    public void concederPremio(Cartao cartao) {
+        if (cartao.getSaldoTickets() >= ticketsObrigatorios && verificarDisponibilidade()) {
+            cartao.setSaldoTickets(cartao.getSaldoTickets() - ticketsObrigatorios);
+            quantidadeDisponivel--;
+            System.out.println("Cartão " + cartao.getNumero() + ": Prêmio " + nome + " concedido! " +
+                    "Saldo de tíquetes: " + cartao.getSaldoTickets() + ". " + quantidadeDisponivel +
+                    " prêmios restantes.");
+        } else {
+            System.out.println("Cartão " + cartao.getNumero() + ": Tíquetes insuficientes ou prêmio " +
+                    nome + " esgotado.");
+        }
+    }
+}
+
+// Classe Terminal
+class Terminal {
+    private Cartao cartao;
+    private CategoriaPremio[] categoriasPremio;
+
+    public Terminal() {
+        cartao = null;
+        categoriasPremio = new CategoriaPremio[3];
+        categoriasPremio[0] = new CategoriaPremio("Categoria 1", 10, 5);
+        categoriasPremio[1] = new CategoriaPremio("Categoria 2", 20, 3);
+        categoriasPremio[2] = new CategoriaPremio("Categoria 3", 30, 2);
+    }
+
+    public void inserirCartao(Cartao cartao) {
+        this.cartao = cartao;
+        System.out.println("Cartão " + cartao.getNumero() + " inserido no terminal.");
+        imprimirSaldoCartao();
+    }
+
+    public void carregarCreditos(int creditos) {
+        if (cartao != null) {
+            int saldoAtual = cartao.getSaldoCredito();
+            cartao.setSaldoCredito(saldoAtual + creditos);
+            System.out.println("Cartão " + cartao.getNumero() + ": " + creditos +
+                    " créditos carregados. Saldo de créditos: " + cartao.getSaldoCredito());
+            imprimirSaldoCartao();
+        } else {
+            System.out.println("Nenhum cartão inserido no terminal.");
+        }
+    }
+
+    public void transferirCreditos(Cartao origem, Cartao destino, int quantidade) {
+        if (origem.getSaldoCredito() >= quantidade) {
+            origem.setSaldoCredito(origem.getSaldoCredito() - quantidade);
+            destino.setSaldoCredito(destino.getSaldoCredito() + quantidade);
+            System.out.println("Transferência de créditos concluída. Cartão " +
+                    origem.getNumero() + ": " + quantidade + " créditos transferidos para Cartão " +
+                    destino.getNumero());
+            imprimirSaldoCartao(origem);
+            imprimirSaldoCartao(destino);
+        } else {
+            System.out.println("Cartão " + origem.getNumero() + ": Créditos insuficientes para transferência.");
+        }
+    }
+
+    public void solicitarPremio(Cartao cartao, int categoria) {
+        if (categoria >= 0 && categoria < categoriasPremio.length) {
+            CategoriaPremio categoriaPremio = categoriasPremio[categoria];
+            categoriaPremio.concederPremio(cartao);
+        } else {
+            System.out.println("Categoria de prêmio inválida.");
+        }
+    }
+
+    private void imprimirSaldoCartao() {
+        if (cartao != null) {
+            System.out.println("Cartão " + cartao.getNumero() + ": Saldo de créditos: " +
+                    cartao.getSaldoCredito() + " / Saldo de tíquetes: " +
+                    cartao.getSaldoTickets());
+        }
+    }
+
+    private void imprimirSaldoCartao(Cartao cartao) {
+        System.out.println("Cartão " + cartao.getNumero() + ": Saldo de créditos: " +
+                cartao.getSaldoCredito() + " / Saldo de tíquetes: " +
+                cartao.getSaldoTickets());
+    }
+}
+
+// Classe de teste
+public class FliperamaTeste {
+    public static void main(String[] args) {
+        Cartao cartao1 = new Cartao(1);
+        Cartao cartao2 = new Cartao(2);
+        Terminal terminal = new Terminal();
+
+        terminal.inserirCartao(cartao1);
+        terminal.carregarCreditos(10);
+        terminal.solicitarPremio(cartao1, 0);
+        terminal.solicitarPremio(cartao1, 1);
+        terminal.solicitarPremio(cartao1, 2);
+
+        terminal.inserirCartao(cartao2);
+        terminal.carregarCreditos(20);
+        terminal.solicitarPremio(cartao2, 0);
+        terminal.solicitarPremio(cartao2, 1);
+        terminal.solicitarPremio(cartao2, 2);
+
+        Jogo jogo1 = new Jogo("Jogo 1", 5);
+        Jogo jogo2 = new Jogo("Jogo 2", 10);
+        Jogo jogo3 = new Jogo("Jogo 3", 15);
+
+        jogo1.jogar(cartao1);
+        jogo2.jogar(cartao1);
+        jogo3.jogar(cartao1);
+
+        jogo1.jogar(cartao2);
+        jogo2.jogar(cartao2);
+        jogo3.jogar(cartao2);
+
+        terminal.transferirCreditos(cartao1, cartao2, 5);
+        terminal.transferirCreditos(cartao1, cartao2, 10);
+
+        terminal.solicitarPremio(cartao2, 0);
+        terminal.solicitarPremio(cartao2, 0);
+        terminal.solicitarPremio(cartao2, 0);
+    }
+}
+
+Nesse exemplo, as classes Cartao, Jogo, CategoriaPremio e Terminal modelam os objetos do fliperama com suas respectivas propriedades e comportamentos. O método main na classe FliperamaTeste é usado para testar o programa, seguindo as ações descritas nas instruções.
+
+Tenha em mente que este é apenas um exemplo de implementação. Dependendo dos requisitos adicionais ou da complexidade desejada, você pode precisar fazer ajustes ou adicionar mais funcionalidades às classes.

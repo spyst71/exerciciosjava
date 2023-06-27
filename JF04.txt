@@ -1,0 +1,153 @@
+Aqui está um exemplo de como você pode escrever um método em Java para converter uma temperatura de Fahrenheit para Celsius, utilizando a fórmula fornecida:
+
+public class TemperatureConverter {
+    
+    public static double convertToFahrenheit(double celsius) {
+        double fahrenheit = (9.0 / 5.0) * celsius + 32;
+        return fahrenheit;
+    }
+    
+    public static double convertToCelsius(double fahrenheit) {
+        double celsius = (5.0 / 9.0) * (fahrenheit - 32);
+        return celsius;
+    }
+    
+    public static void main(String[] args) {
+        double celsius = 25.0;
+        double fahrenheit = convertToFahrenheit(celsius);
+        System.out.println(celsius + " graus Celsius é igual a " + fahrenheit + " graus Fahrenheit.");
+        
+        fahrenheit = 77.0;
+        celsius = convertToCelsius(fahrenheit);
+        System.out.println(fahrenheit + " graus Fahrenheit é igual a " + celsius + " graus Celsius.");
+    }
+}
+
+
+Nesse exemplo, temos a classe TemperatureConverter que contém dois métodos estáticos: convertToFahrenheit e convertToCelsius. O método convertToFahrenheit recebe uma temperatura em Celsius como parâmetro, aplica a fórmula para converter para Fahrenheit e retorna o resultado. O método convertToCelsius faz o inverso, recebendo uma temperatura em Fahrenheit e convertendo para Celsius.
+
+No método main, são feitos exemplos de conversões de temperatura. A temperatura inicial é fornecida em Celsius e convertida para Fahrenheit usando o método convertToFahrenheit. Em seguida, a temperatura em Fahrenheit é fornecida e convertida para Celsius usando o método convertToCelsius. Os resultados são impressos no console.
+
+Você pode ajustar os valores de temperatura de entrada de acordo com suas necessidades.
+
+
+
+A fórmula correta para calcular o comprimento da hipotenusa de um triângulo retângulo, dado o comprimento de seus lados, é o teorema de Pitágoras:
+
+c² = a² + b²
+
+Onde:
+c é o comprimento da hipotenusa
+a é o comprimento de um dos catetos
+b é o comprimento do outro cateto
+
+Para calcular o comprimento da hipotenusa, você precisa substituir os valores de a e b na fórmula e calcular a raiz quadrada do resultado. A fórmula correta seria:
+
+c = √(a² + b²)
+
+Por exemplo, se os catetos tiverem comprimentos de 3 e 4 unidades, respectivamente, podemos calcular o comprimento da hipotenusa da seguinte forma:
+
+c = √(3² + 4²)
+c = √(9 + 16)
+c = √25
+c = 5 unidades
+
+Portanto, no exemplo dado, o comprimento da hipotenusa é igual a 5 unidades.
+
+
+Aqui está uma possível implementação dos arquivos ComputeMethods.java e TestClass.java para realizar as tarefas descritas:
+
+ComputeMethods.java:
+
+public class ComputeMethods {
+    public double fToC(double degreesF) {
+        double degreesC = 5.0 / 9.0 * (degreesF - 32);
+        return degreesC;
+    }
+
+    public double hypotenuse(int a, int b) {
+        double hypotenuse = Math.sqrt(a * a + b * b);
+        return hypotenuse;
+    }
+
+    public int roll() {
+        int dice1 = (int) (Math.random() * 6) + 1; // Gera um número aleatório de 1 a 6 para o dado 1
+        int dice2 = (int) (Math.random() * 6) + 1; // Gera um número aleatório de 1 a 6 para o dado 2
+        int sum = dice1 + dice2;
+        return sum;
+    }
+}
+
+
+TestClass.java:
+
+
+public class TestClass {
+    public static void main(String[] args) {
+        ComputeMethods compute = new ComputeMethods();
+
+        double celsius = compute.fToC(100.0);
+        System.out.println("Temp in celsius is " + celsius);
+
+        double hypotenuse = compute.hypotenuse(8, 6);
+        System.out.println("Hypotenuse is " + hypotenuse);
+
+        int diceSum = compute.roll();
+        System.out.println("The sum of the dice values is " + diceSum);
+    }
+}
+
+
+Ao executar o método main na classe TestClass, você criará uma instância da classe ComputeMethods e chamará os três métodos definidos nela. Em seguida, os resultados serão impressos no console.
+
+Certifique-se de que os dois arquivos estejam na mesma pasta e execute o arquivo TestClass.java. A saída esperada deve ser:
+
+
+Temp in celsius is 37.77777777777778
+Hypotenuse is 10.0
+The sum of the dice values is X
+
+
+
+Observe que o valor exato da conversão para Celsius pode variar um pouco devido a imprecisões de ponto flutuante. O valor mostrado acima é apenas um exemplo. Além disso, a última linha da saída mostrará o valor da soma dos dados, que será um número aleatório entre 2 e 12.
+
+
+
+
+
+Aqui está um exemplo de implementação do programa Java que processa um nome inserido pelo usuário:
+
+java
+
+
+import java.util.Scanner;
+
+public class ProcessName {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Type your name: ");
+        String fullName = scanner.nextLine();
+
+        int spaceIndex = fullName.lastIndexOf(' ');
+        String firstName = fullName.substring(0, spaceIndex);
+        String lastName = fullName.substring(spaceIndex + 1);
+
+        String processedName = lastName + ", " + firstName.charAt(0) + ".";
+        System.out.println("Your name is: " + processedName);
+    }
+}
+
+
+Este programa utiliza a classe Scanner para ler a entrada do usuário. O nome completo é lido como uma única string usando o método nextLine().
+
+Em seguida, o programa encontra o índice do último espaço na string do nome completo usando lastIndexOf(' '). Isso separa o primeiro nome do último nome.
+
+Usando os métodos substring(), o programa extrai o primeiro nome e o último nome.
+
+A variável processedName é criada concatenando o último nome, uma vírgula e a primeira inicial do primeiro nome.
+
+Finalmente, a saída é exibida no console usando System.out.println().
+
+
+

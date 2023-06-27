@@ -1,0 +1,265 @@
+Aqui está um exemplo de implementação em Java que modela uma liga de futebol e controla as estatísticas da temporada, conforme descrito no exercício:
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+class Team {
+    private String name;
+    private int wins;
+    private int losses;
+    private int ties;
+    private int goalsScored;
+    private int goalsAllowed;
+
+    public Team(String name) {
+        this.name = name;
+        this.wins = 0;
+        this.losses = 0;
+        this.ties = 0;
+        this.goalsScored = 0;
+        this.goalsAllowed = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void incrementWins() {
+        this.wins++;
+    }
+
+    public int getLosses() {
+        return losses;
+    }
+
+    public void incrementLosses() {
+        this.losses++;
+    }
+
+    public int getTies() {
+        return ties;
+    }
+
+    public void incrementTies() {
+        this.ties++;
+    }
+
+    public int getGoalsScored() {
+        return goalsScored;
+    }
+
+    public void incrementGoalsScored(int goals) {
+        this.goalsScored += goals;
+    }
+
+    public int getGoalsAllowed() {
+        return goalsAllowed;
+    }
+
+    public void incrementGoalsAllowed(int goals) {
+        this.goalsAllowed += goals;
+    }
+
+    @Override
+    public String toString() {
+        return "Team: " + name +
+                "\nWins: " + wins +
+                ", Losses: " + losses +
+                ", Ties: " + ties +
+                "\nPoints Scored: " + goalsScored +
+                ", Points Allowed: " + goalsAllowed + "\n";
+    }
+}
+
+class Game {
+    private static int gameCount = 0;
+    private int gameNumber;
+    private int temperature;
+    private Team homeTeam;
+    private Team awayTeam;
+    private int homeTeamScore;
+    private int awayTeamScore;
+
+    public Game(int temperature, Team homeTeam, Team awayTeam) {
+        this.gameNumber = ++gameCount;
+        this.temperature = temperature;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.homeTeamScore = generateRandomScore();
+        this.awayTeamScore = generateRandomScore();
+    }
+
+    private int generateRandomScore() {
+        Random random = new Random();
+        int maxGoals = temperature / 10;
+        return random.nextInt(maxGoals + 1);
+    }
+
+    public int getGameNumber() {
+        return gameNumber;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public int getHomeTeamScore() {
+        return homeTeamScore;
+    }
+
+    public int getAwayTeamScore() {
+        return awayTeamScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Game #" + gameNumber +
+                "\nTemperature: " + temperature +
+                "\nAway Team: " + awayTeam.getName() + ", " + awayTeamScore +
+                "\nHome Team: " + homeTeam.getName() + ", " + homeTeamScore + "\n";
+    }
+}
+
+public class FootballLeague {
+    private List<Team> teams;
+    private List<Game> games;
+    private int consecutiveColdWeeks;
+
+    public FootballLeague() {
+        teams = new ArrayList<>();
+        teams.add(new Team("Team 1"));
+        teams.add(new Team("Team 2"));
+        teams.add(new Team("Team 3"));
+        teams.add(new Team("Team 4"));
+        games = new ArrayList<>();
+        consecutiveColdWeeks = 0;
+    }
+
+    public void playSeason() {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        while (true) {
+            System.out.print("Enter the temperature (enter a negative number to stop): ");
+            int temperature = scanner.nextInt();
+
+            if (temperature < 0) {
+                System.out.println("Season is over\n");
+                break;
+            }
+
+            if (temperature < 32) {
+                consecutiveColdWeeks++;
+                if (consecutiveColdWeeks == 3) {
+                    System.out.println("Season is over\n");
+                    break;
+                }
+                System.out.println("Too cold to play.\n");
+                continue;
+            } else {
+                consecutiveColdWeeks = 0;
+            }
+
+            if (temperature >= 32) {
+                int numGames = 2;
+                for (int i = 0; i < numGames; i++) {
+                    Team homeTeam = getRandomTeam();
+                    Team awayTeam = getRandomTeam();
+
+                    while (homeTeam == awayTeam) {
+                        awayTeam = getRandomTeam();
+                    }
+
+                    Game game = new Game(temperature, homeTeam, awayTeam);
+                    games.add(game);
+
+                    updateTeamStatistics(game);
+                }
+
+                System.out.println("Games played at temperature " + temperature + ":\n");
+                for (Game game : games) {
+                    System.out.println(game);
+                }
+                System.out.println("Hottest Temp: " + temperature);
+                System.out.println("Average Temp: " + calculateAverageTemperature() + "\n");
+            }
+        }
+
+        System.out.println("*********RESULTS*********\n");
+
+        for (Team team : teams) {
+            System.out.println(team);
+        }
+    }
+
+    private Team getRandomTeam() {
+        Random random = new Random();
+        int index = random.nextInt(teams.size());
+        return teams.get(index);
+    }
+
+    private void updateTeamStatistics(Game game) {
+        Team homeTeam = game.getHomeTeam();
+        Team awayTeam = game.getAwayTeam();
+        int homeTeamScore = game.getHomeTeamScore();
+        int awayTeamScore = game.getAwayTeamScore();
+
+        homeTeam.incrementGoalsScored(homeTeamScore);
+        homeTeam.incrementGoalsAllowed(awayTeamScore);
+        awayTeam.incrementGoalsScored(awayTeamScore);
+        awayTeam.incrementGoalsAllowed(homeTeamScore);
+
+        if (homeTeamScore > awayTeamScore) {
+            homeTeam.incrementWins();
+            awayTeam.incrementLosses();
+        } else if (homeTeamScore < awayTeamScore) {
+            homeTeam.incrementLosses();
+            awayTeam.incrementWins();
+        } else {
+            homeTeam.incrementTies();
+            awayTeam.incrementTies();
+        }
+    }
+
+    private double calculateAverageTemperature() {
+        if (games.isEmpty()) {
+            return 0;
+        }
+
+        int sum = 0;
+        for (Game game : games) {
+            sum += game.getTemperature();
+        }
+        return (double) sum / games.size();
+    }
+
+    public static void main(String[] args) {
+        FootballLeague league = new FootballLeague();
+        league.playSeason();
+    }
+}
+
+
+Neste exemplo, criamos duas classes principais: Team (representando as equipes) e Game (representando os jogos). A classe FootballLeague é a classe principal que controla o fluxo da temporada e as estatísticas.
+
+A classe Team possui campos para nome, total de vitórias, derrotas, empates, gols marcados e gols sofridos. Também possui métodos para incrementar as estatísticas e obter as informações. A classe Game possui campos para o número do jogo, temperatura, equipes envolvidas e pontuações. Ela também gera aleatoriamente as pontuações com base na temperatura.
+
+Na classe FootballLeague, criamos uma lista de equipes e uma lista de jogos. O método playSeason controla o loop principal do programa, onde o usuário insere a temperatura semanalmente. Se a temperatura estiver abaixo de zero, a temporada termina. Se a temperatura estiver abaixo de 32, a temporada também pode terminar se houver três semanas consecutivas de temperaturas congelantes. Caso contrário, são programados dois jogos com equipes aleatórias, desde que não sejam a mesma equipe. As estatísticas das equipes e dos jogos são atualizadas a cada jogo.
+
+No final da temporada, as estatísticas das equipes são impressas, assim como os detalhes de cada jogo, a temperatura mais quente e a temperatura média.
+
+Espero que este exemplo seja útil para ajudá-lo a entender como modelar uma liga de futebol e controlar as estatísticas da temporada em Java.

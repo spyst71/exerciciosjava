@@ -1,0 +1,97 @@
+Aqui está um exemplo de implementação em Java para validar um PIN bancário usando um loop while:
+
+import java.util.Scanner;
+
+public class ValidatePin {
+    public static void main(String[] args) {
+        int pin = 1234; // PIN válido
+        int inputPin;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o PIN: ");
+        inputPin = scanner.nextInt();
+
+        while (inputPin != pin) {
+            System.out.println("PIN incorreto. Digite novamente: ");
+            inputPin = scanner.nextInt();
+        }
+
+        System.out.println("PIN correto inserido. Acesso concedido à conta.");
+    }
+}
+
+
+Neste exemplo, a variável pin representa o PIN válido. O programa solicita que o usuário insira um PIN e, em seguida, entra em um loop while. O loop compara o PIN inserido pelo usuário com o PIN válido. Se o PIN inserido não for o mesmo, o programa solicita que o usuário insira o PIN novamente. O loop continua até que o PIN correto seja inserido. Após isso, o programa imprime uma mensagem confirmando que o PIN correto foi inserido e que o acesso à conta é concedido.
+
+Certifique-se de fornecer o PIN correto para testar o programa. Neste exemplo, o PIN válido é definido como 1234.
+
+Aqui está um exemplo de código Java que exibe os múltiplos de um número usando um loop for:
+
+import java.util.Scanner;
+
+public class DisplayMultiples {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Choose a number: ");
+        int number = scanner.nextInt();
+
+        for (int i = 1; i <= 12; i++) {
+            int multiple = number * i;
+            System.out.println(number + "x" + i + " = " + multiple);
+        }
+
+        scanner.close();
+    }
+}
+
+
+Neste programa, primeiro solicitamos ao usuário que insira um número usando Scanner. Em seguida, usamos um loop for para iterar de 1 a 12 e calcular os múltiplos desse número. Para cada iteração do loop, multiplicamos o número inserido pelo usuário pelo valor do contador i e exibimos o resultado.
+
+Ao executar o programa, você verá a saída esperada, como mencionado no enunciado. Certifique-se de que o arquivo Java esteja salvo com o nome "DisplayMultiples.java" para que o programa seja compilado e executado corretamente.
+
+
+Aqui está uma possível solução para o problema em Java:
+
+public class LoopShape {
+    public static void createRectangle(int width, int height) {
+        if (width < 1 || height < 1) {
+            System.out.println("As dimensões devem ser maiores ou iguais a 1.");
+            return;
+        }
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print("#");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void createTriangle(int size) {
+        if (size < 1) {
+            System.out.println("O tamanho do triângulo deve ser maior ou igual a 1.");
+            return;
+        }
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print("#");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        // Exemplo de uso
+        createRectangle(5, 4);
+        System.out.println();
+
+        createTriangle(5);
+    }
+}
+
+Essa solução utiliza dois loops aninhados para imprimir as formas desejadas. No método createRectangle(), o primeiro loop controla o número de linhas e o segundo loop controla o número de colunas para imprimir os caracteres #. No método createTriangle(), o primeiro loop controla o número de linhas e o segundo loop controla o número de caracteres # a serem impressos em cada linha.
+
+No método main(), há um exemplo de uso chamando os métodos createRectangle() e createTriangle() com tamanhos personalizados.
